@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pomodoro</title>
+</head>
+<body>
+
+
+    <h1 id="timer">30:00</h1>
+    <button id="start">Começar</button>
+    <button id="reset">Reset</button>
+
+
+    <script>
+
+        let timer = 1800;
+        let rest = 300;
+        let htmltimer = document.getElementById("timer")
+        let intervalId;
+        
+        function returnData(t) {
+            const min = Math.floor(t / 60);
+            const sec = t % 60;
+            return `${min < 10 ? "0" + min : min}:${sec < 10 ? "0" + sec : sec}`;
+        }
+        
+        function timerStart() {
+            if (timer <= 0) {
+                clearInterval(intervalId);
+                return;
+            }
+            
+            timer--;
+            htmltimer.innerHTML = returnData(timer);
+
+        }
+
+        document.getElementById("start").addEventListener('click', () => {
+            
+            if (intervalId) {
+
+                clearInterval(intervalId);
+
+            } else {
+                intervalId = window.setInterval(timerStart, 1000);
+            }
+
+        });
+
+        document.getElementById("reset").addEventListener('click', () => {
+            timer = 1800;
+        })
+        
+    </script>
+</body>
+</html>
